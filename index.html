@@ -1,415 +1,111 @@
-<!doctype html>
-<html lang="zh-Hans">
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>亲子DBT线上小课（6天）</title>
-  <meta name="description" content="一个为期6天的亲子DBT线上课程：正念、情绪调节、痛苦耐受、情绪认可、人际效能、共同调节。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Tailwind via CDN for quick styling on GitHub Pages -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>DBT 亲子6日课程</title>
   <style>
-    :root{--brand:#5b8def;--warn:#f59e0b;--ok:#10b981;--danger:#ef4444}
-    html,body{font-family:'Noto Sans SC',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji';}
-    .breath-circle { width: 140px; height: 140px; border-radius: 999px; border: 6px solid var(--brand); margin: 0 auto;}
-    .pulse { animation: pulse 3s ease-in-out infinite; }
-    @keyframes pulse { 0%{ transform: scale(0.85); } 50%{ transform: scale(1); } 100%{ transform: scale(0.85);} }
-    .glass{ backdrop-filter: blur(10px); background: rgba(255,255,255,0.7);} 
-    .card{ box-shadow: 0 10px 30px rgba(0,0,0,.06); border-radius: 1rem; }
-    .btn{ @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl border; }
-    .btn-primary{ @apply text-white; background: var(--brand); border-color: var(--brand);} 
-    .btn-ghost{ @apply border-slate-300; }
-    .dot{ width:14px;height:14px;border-radius:999px;display:inline-block }
-    .dot.red{ background: var(--danger);} .dot.yellow{ background: var(--warn);} .dot.green{ background: var(--ok);}    
-    canvas#rgCanvas{ touch-action: none; }
-    .kbd{ @apply px-2 py-0.5 rounded-md border border-slate-300 text-xs bg-white; }
+    body { font-family: "Microsoft YaHei", sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    header { background: #4CAF50; color: white; padding: 20px; text-align: center; }
+    main { max-width: 900px; margin: 20px auto; padding: 0 20px; }
+    h2 { color: #333; }
+    .accordion { background: white; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+    .accordion-header { padding: 15px; cursor: pointer; background: #eee; font-weight: bold; }
+    .accordion-content { display: none; padding: 15px; border-top: 1px solid #ddd; }
+    .accordion.active .accordion-content { display: block; }
+    .btn { display: inline-block; margin-top: 10px; padding: 8px 14px; background: #4CAF50; color: white; text-decoration: none; border-radius: 4px; }
+    .btn:hover { background: #45a049; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
-  <!-- Header -->
-  <header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl text-white" style="background:var(--brand)">🧭</span>
-        <div>
-          <h1 class="text-lg font-bold">亲子DBT线上小课</h1>
-          <p class="text-xs text-slate-500">6天一起学：正念 · 情绪调节 · 痛苦耐受 · 情绪认可 · 人际效能 · 共同调节</p>
-        </div>
-      </div>
-      <nav class="hidden md:flex items-center gap-2">
-        <a href="#day1" class="btn btn-ghost">第1次 正念</a>
-        <a href="#day2" class="btn btn-ghost">第2次 情绪像天气</a>
-        <a href="#day3" class="btn btn-ghost">第3次 情绪风暴小工具</a>
-        <a href="#day4" class="btn btn-ghost">第4次 情绪认可</a>
-        <a href="#day5" class="btn btn-ghost">第5次 人际效能</a>
-        <a href="#day6" class="btn btn-ghost">第6次 共同调节</a>
-      </nav>
-      <a href="#how-to" class="btn btn-primary">在 GitHub Pages 发布</a>
-    </div>
+<body>
+  <header>
+    <h1>DBT 亲子6日课程</h1>
+    <p>通过6次课程，帮助父母和孩子学习情绪调节与沟通的技能。</p>
   </header>
-
-  <!-- Hero -->
-  <section class="bg-gradient-to-b from-white to-slate-100 border-b">
-    <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">把情绪变成可以读懂的“<span class="text-[var(--brand)]">红绿灯</span>”</h2>
-        <p class="mt-4 text-slate-600">为父母与孩子设计的6天微课。每次课程都有简单可玩的活动、清晰讲解、一起动手的小练习，以及可操作的家庭作业。</p>
-        <div class="mt-6 flex gap-3">
-          <a href="#day1" class="btn btn-primary">从第1次开始</a>
-          <a href="#syllabus" class="btn btn-ghost">查看课程大纲</a>
-        </div>
-      </div>
-      <div class="card p-6 bg-white">
-        <div class="flex items-center gap-3">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="text-sm text-slate-500">情绪像交通灯 · 会亮也会变</span>
-        </div>
-        <div class="mt-6 text-center">
-          <div class="breath-circle pulse"></div>
-          <p class="mt-3 text-sm text-slate-500">跟着圆圈呼吸：吸气 3 秒 · 呼气 3 秒</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Syllabus -->
-  <section id="syllabus" class="max-w-6xl mx-auto px-4 py-10">
-    <h3 class="text-2xl font-bold">课程大纲（6次）</h3>
-    <div class="mt-6 grid md:grid-cols-3 gap-4">
-      <div class="card p-5 bg-white"><h4 class="font-semibold">第1次：正念启蒙——觉察情绪的红绿灯</h4><p class="text-sm text-slate-600 mt-2">学会“停下来—觉察—有意识选择”。配套活动与练习已就绪。</p></div>
-      <div class="card p-5 bg-white"><h4 class="font-semibold">第2次：情绪调节——情绪像天气</h4><p class="text-sm text-slate-500 mt-2">占位符 · 内容稍后补充。</p></div>
-      <div class="card p-5 bg-white"><h4 class="font-semibold">第3次：痛苦耐受——情绪风暴时的小工具</h4><p class="text-sm text-slate-500 mt-2">占位符 · 内容稍后补充。</p></div>
-      <div class="card p-5 bg-white"><h4 class="font-semibold">第4次：情绪认可——让孩子感到被理解</h4><p class="text-sm text-slate-500 mt-2">占位符 · 内容稍后补充。</p></div>
-      <div class="card p-5 bg-white"><h4 class="font-semibold">第5次：人际效能——学会表达需要</h4><p class="text-sm text-slate-500 mt-2">占位符 · 内容稍后补充。</p></div>
-      <div class="card p-5 bg-white"><h4 class="font-semibold">第6次：共同调节——一起找到快乐小盒子</h4><p class="text-sm text-slate-500 mt-2">占位符 · 内容稍后补充。</p></div>
-    </div>
-  </section>
-
-  <!-- Day 1 Content -->
-  <section id="day1" class="max-w-6xl mx-auto px-4 py-10">
-    <div class="flex items-center gap-3 mb-4">
-      <h3 class="text-2xl font-bold">第1次：正念启蒙——觉察情绪的红绿灯</h3>
-      <span class="kbd">正念</span>
-      <span class="kbd">观察</span>
-      <span class="kbd">不评判</span>
-      <span class="kbd">此时此刻</span>
-    </div>
-
-    <div class="card bg-white p-6">
-      <h4 class="text-lg font-semibold">开场问候</h4>
-      <p class="mt-2 leading-7">亲爱的小朋友和家长们，欢迎来到我们情绪宇宙的第一节小课堂——正念。今天，我们要一起学一个有趣的小游戏，帮助我们认识情绪，就像认识交通灯一样。准备好了吗？</p>
-      <div class="mt-3 flex gap-2">
-        <button class="btn btn-primary" id="readyYes">是</button>
-        <button class="btn btn-ghost" id="readyNo">否</button>
-      </div>
-      <p id="readyMsg" class="mt-3 text-sm text-slate-600"></p>
-    </div>
-
-    <!-- Activity -->
-    <div class="card bg-white p-6 mt-6 hidden" id="activity">
-      <h4 class="text-lg font-semibold">一、小活动：红灯绿灯游戏</h4>
-      <p class="mt-2 text-slate-600">（此段需放慢语速，配合呼吸的节奏，给父母和孩子体验的空间）</p>
-
-      <div class="mt-4 grid md:grid-cols-2 gap-6">
-        <div>
-          <div class="p-4 rounded-xl border bg-slate-50">
-            <p class="text-sm">提示区域</p>
-            <div class="mt-2 text-2xl font-bold" id="trafficCue">点击“开始引导”</div>
-            <div class="mt-2 text-sm text-slate-500">倒计时：<span id="countdown">—</span></div>
-            <div class="mt-4 flex gap-2">
-              <button class="btn btn-primary" id="startSequence">开始引导</button>
-              <button class="btn btn-ghost" id="pauseSequence">暂停</button>
-              <button class="btn btn-ghost" id="resetSequence">重置</button>
-            </div>
-          </div>
-          <ul class="list-disc list-inside mt-4 text-slate-700 leading-7">
-            <li><span class="dot red"></span> 我说<strong>红灯</strong>：停下来，闭眼，做三次深呼吸；觉察情绪与身体。</li>
-            <li><span class="dot green"></span> 我说<strong>绿灯</strong>：睁眼，活动手脚，像小树摆动。</li>
-            <li>共 3 轮，自动引导（可随时暂停）。</li>
-          </ul>
-        </div>
-        <div class="text-sm leading-7">
-          <p>就像天气会不断变化一样，我们也会有许多变化着的情绪。这个游戏帮助我们练习“停下来”，给自己时间，注意身体的变化，让大脑有机会冷静下来，而不是被情绪推着走。</p>
-          <div class="mt-4 p-4 bg-emerald-50 border rounded-xl">
-            <p>体验分享（可选）：点击下方麦克风语音输入或直接键入。</p>
-            <div class="mt-2 flex items-center gap-2">
-              <button class="btn btn-ghost" id="micBtn">🎤 开始录音</button>
-              <span id="micStatus" class="text-xs text-slate-500">浏览器需支持 Web Speech API</span>
-            </div>
-            <textarea id="feedbackBox" class="mt-3 w-full p-3 border rounded-xl focus:outline-none focus:ring" rows="4" placeholder="说说你刚才的感受……"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-6">
-        <p>大家学会了吗？</p>
-        <div class="mt-2 flex gap-2">
-          <button class="btn btn-primary" id="learnedYes">学会了</button>
-          <button class="btn btn-ghost" id="learnedNo">没学会，再来一遍</button>
-        </div>
-        <p id="learnedMsg" class="mt-2 text-sm text-slate-600"></p>
+  <main>
+    <h2>课程大纲</h2>
+    
+    <!-- Day 1 -->
+    <div class="accordion">
+      <div class="accordion-header">第1次：正念启蒙——觉察情绪的红绿灯</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>帮助父母和孩子一起学习“停下来-觉察-有意识的选择”的正念方式。</p>
+        <p><strong>环节：</strong></p>
+        <ol>
+          <li>小活动：红灯绿灯游戏 → 红灯时闭眼，关注呼吸/身体感觉。</li>
+          <li>讲解：正念的定义，包括观察、不评判、此时此刻。情绪像“交通灯”——红灯（生气/冲动）、黄灯（紧张/不确定）、绿灯（平静/可以行动）。</li>
+          <li>练习：画“我的情绪红绿灯”，写下自己平常的信号。</li>
+        </ol>
+        <p><strong>家庭作业：</strong>每天一起做1分钟“红灯暂停”，练习深呼吸。</p>
+        <a href="day1.html" class="btn">进入课程</a>
       </div>
     </div>
 
-    <!-- Explanation -->
-    <div class="card bg-white p-6 mt-6">
-      <h4 class="text-lg font-semibold">二、讲解：什么是正念？</h4>
-      <p class="mt-2 leading-7">正念，就是把注意力放在当下，去觉察正在发生的事情，包括我们的想法、情绪和身体感觉，而不急着评判它们。三个小秘诀：</p>
-      <ul class="list-disc list-inside leading-8">
-        <li><strong>观察</strong>：看看现在发生了什么。</li>
-        <li><strong>不评判</strong>：不要急着说对或错、好或坏。</li>
-        <li><strong>此时此刻</strong>：只关注现在，而不是过去或将来。</li>
-      </ul>
-      <p class="mt-2 leading-7">把情绪想象成交通灯：</p>
-      <div class="mt-3 grid sm:grid-cols-3 gap-3 text-sm">
-        <div class="p-4 border rounded-xl">
-          <div class="flex items-center gap-2"><span class="dot red"></span><strong>红灯</strong></div>
-          <p class="mt-2 text-slate-600">生气/冲动，先停下。</p>
-        </div>
-        <div class="p-4 border rounded-xl">
-          <div class="flex items-center gap-2"><span class="dot yellow"></span><strong>黄灯</strong></div>
-          <p class="mt-2 text-slate-600">紧张/不确定，留心观察。</p>
-        </div>
-        <div class="p-4 border rounded-xl">
-          <div class="flex items-center gap-2"><span class="dot green"></span><strong>绿灯</strong></div>
-          <p class="mt-2 text-slate-600">平静/放松，可以行动。</p>
-        </div>
+    <!-- Day 2 -->
+    <div class="accordion">
+      <div class="accordion-header">第2次：情绪调节——情绪像天气</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>理解情绪会来去，学会命名和理解情绪。</p>
+        <p><strong>环节：</strong></p>
+        <ol>
+          <li>比喻游戏：情绪像天气。</li>
+          <li>练习：制作“情绪天气预报”卡片。</li>
+          <li>父母练习：用比喻回应孩子情绪。</li>
+        </ol>
+        <p><strong>家庭作业：</strong>每天晚饭后分享“今天的情绪天气”。</p>
+        <a href="day2.html" class="btn">进入课程</a>
       </div>
     </div>
 
-    <!-- Drawing Exercise -->
-    <div class="card bg-white p-6 mt-6">
-      <h4 class="text-lg font-semibold">三、练习：画一画我的情绪红绿灯</h4>
-      <p class="mt-2">一起动手：在红、黄、绿灯旁写下你们各自的信号。可直接在下面画布上涂画与标注，或点击“下载模板”。</p>
-      <div class="mt-4 grid md:grid-cols-2 gap-6">
-        <div>
-          <div class="flex items-center gap-2 text-sm mb-2">
-            <button class="btn btn-ghost" id="penBtn">✏️ 画笔</button>
-            <button class="btn btn-ghost" id="eraserBtn">🧽 橡皮</button>
-            <button class="btn btn-ghost" id="clearCanvas">🗑️ 清空</button>
-            <button class="btn btn-primary" id="saveCanvas">💾 保存为图片</button>
-          </div>
-          <canvas id="rgCanvas" class="border rounded-xl bg-white" width="640" height="420"></canvas>
-          <p class="mt-2 text-xs text-slate-500">提示：手机上用手指绘画；电脑上用鼠标。保存后可与孩子互相分享。</p>
-        </div>
-        <div class="text-sm leading-7">
-          <p><strong>写作引导</strong></p>
-          <ul class="list-disc list-inside">
-            <li>红灯：我什么时候会生气？我会做什么动作？</li>
-            <li>黄灯：我什么时候会紧张？我会出现哪些小信号？</li>
-            <li>绿灯：我什么时候最放松？我喜欢做什么事情？</li>
-          </ul>
-          <a download href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAF8wJ42c9B7wAAAABJRU5ErkJggg==" class="btn btn-ghost mt-3">⬇️ 下载空白模板（占位）</a>
-        </div>
+    <!-- Day 3 -->
+    <div class="accordion">
+      <div class="accordion-header">第3次：痛苦耐受——情绪风暴时的小工具</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>学会在情绪爆发时，使用简单技能安抚自己。</p>
+        <p>内容详见课程页面。</p>
+        <a href="day3.html" class="btn">进入课程</a>
       </div>
     </div>
 
-    <!-- Homework with 1-minute timer -->
-    <div class="card bg-white p-6 mt-6">
-      <h4 class="text-lg font-semibold">四、家庭小作业：每天 1 分钟“红灯暂停”</h4>
-      <p class="mt-2">找一个固定时间（饭前或睡前），一起闭上眼睛，做 1 分钟深呼吸。感觉红灯亮起时，先停一下，再决定要不要行动。</p>
-      <div class="mt-4 flex items-center gap-4">
-        <div class="p-4 border rounded-xl">
-          <div class="text-3xl font-mono text-center" id="timer">01:00</div>
-          <div class="mt-3 flex gap-2 justify-center">
-            <button class="btn btn-primary" id="timerStart">开始</button>
-            <button class="btn btn-ghost" id="timerPause">暂停</button>
-            <button class="btn btn-ghost" id="timerReset">重置</button>
-          </div>
-        </div>
-        <div class="hidden sm:block">
-          <div class="breath-circle" id="timerCircle"></div>
-          <p class="text-xs text-slate-500 text-center mt-2">计时进行时，圆圈会轻微呼吸</p>
-        </div>
+    <!-- Day 4 -->
+    <div class="accordion">
+      <div class="accordion-header">第4次：情绪认可——让孩子感到被理解</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>让父母和孩子学习“认可”的语言和方法。</p>
+        <p>内容详见课程页面。</p>
+        <a href="day4.html" class="btn">进入课程</a>
       </div>
     </div>
 
-    <div class="card bg-white p-6 mt-6">
-      <h4 class="text-lg font-semibold">温暖的小结</h4>
-      <p class="mt-2 leading-7">今天我们一起学会了第一个正念小技巧：觉察情绪的红绿灯。情绪没有对错。陪孩子一起练习，会让技巧更有力量。</p>
-    </div>
-  </section>
-
-  <!-- Day 2-6 Placeholders -->
-  <section id="day2" class="max-w-6xl mx-auto px-4 py-10">
-    <h3 class="text-2xl font-bold">第2次：情绪调节——情绪像天气</h3>
-    <div class="card bg-white p-6 mt-4">
-      <p class="text-slate-500">（占位）目标、环节、家庭作业将在此处呈现。</p>
-    </div>
-  </section>
-  <section id="day3" class="max-w-6xl mx-auto px-4 py-10">
-    <h3 class="text-2xl font-bold">第3次：痛苦耐受——情绪风暴时的小工具</h3>
-    <div class="card bg-white p-6 mt-4">
-      <p class="text-slate-500">（占位）目标、环节、家庭作业将在此处呈现。</p>
-    </div>
-  </section>
-  <section id="day4" class="max-w-6xl mx-auto px-4 py-10">
-    <h3 class="text-2xl font-bold">第4次：情绪认可——让孩子感到被理解</h3>
-    <div class="card bg-white p-6 mt-4">
-      <p class="text-slate-500">（占位）目标、环节、家庭作业将在此处呈现。</p>
-    </div>
-  </section>
-  <section id="day5" class="max-w-6xl mx-auto px-4 py-10">
-    <h3 class="text-2xl font-bold">第5次：人际效能——学会表达需要</h3>
-    <div class="card bg-white p-6 mt-4">
-      <p class="text-slate-500">（占位）目标、环节、家庭作业将在此处呈现。</p>
-    </div>
-  </section>
-  <section id="day6" class="max-w-6xl mx-auto px-4 py-10">
-    <h3 class="text-2xl font-bold">第6次：共同调节——一起找到快乐小盒子</h3>
-    <div class="card bg-white p-6 mt-4">
-      <p class="text-slate-500">（占位）目标、环节、家庭作业将在此处呈现。</p>
-    </div>
-  </section>
-
-  <!-- How-to publish on GitHub Pages -->
-  <section id="how-to" class="bg-white border-t">
-    <div class="max-w-6xl mx-auto px-4 py-10">
-      <h3 class="text-2xl font-bold">如何用 GitHub Pages 发布</h3>
-      <ol class="list-decimal list-inside leading-8 mt-4 text-slate-700">
-        <li>登录 GitHub，新建仓库，如 <code>dbt-kids-course</code>。</li>
-        <li>把本页面保存为 <code>index.html</code> 上传到仓库根目录。</li>
-        <li>在仓库的 <em>Settings → Pages</em> 中，选择 <em>Deploy from a branch</em>，分支选 <code>main</code>，目录 <code>/root</code>，保存。</li>
-        <li>等待几秒，<em>Pages</em> 会给出网址，分享给家长与学员即可。</li>
-      </ol>
-      <p class="text-sm text-slate-500 mt-2">（如需自定义域名，可在 Pages 中关联自有域名）</p>
-    </div>
-  </section>
-
-  <footer class="border-t">
-    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-slate-500 flex flex-wrap gap-2 items-center justify-between">
-      <span>© <span id="year"></span> 亲子DBT线上小课</span>
-      <div class="flex items-center gap-3">
-        <a class="underline" href="#syllabus">课程大纲</a>
-        <a class="underline" href="#how-to">发布指南</a>
+    <!-- Day 5 -->
+    <div class="accordion">
+      <div class="accordion-header">第5次：人际效能——学会表达需要</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>帮助孩子用合适的方式表达需求，减少情绪爆发。</p>
+        <p>内容详见课程页面。</p>
+        <a href="day5.html" class="btn">进入课程</a>
       </div>
     </div>
-  </footer>
+
+    <!-- Day 6 -->
+    <div class="accordion">
+      <div class="accordion-header">第6次：共同调节——一起找到快乐小盒子</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>建立亲子共调节经验，用积极活动来恢复情绪。</p>
+        <p>内容详见课程页面。</p>
+        <a href="day6.html" class="btn">进入课程</a>
+      </div>
+    </div>
+
+  </main>
 
   <script>
-    // Utility helpers
-    const $ = (sel) => document.querySelector(sel);
-    const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
-    $('#year').textContent = new Date().getFullYear();
-
-    // Ready buttons → show activity
-    const readyMsg = $('#readyMsg');
-    const activity = $('#activity');
-    on($('#readyYes'),'click',()=>{ readyMsg.textContent = '太好了，我们进入红绿灯小游戏～'; activity.classList.remove('hidden'); activity.scrollIntoView({behavior:'smooth'}); });
-    on($('#readyNo'),'click',()=>{ readyMsg.textContent = '没关系，先深呼吸三次，准备好随时再开始。'; });
-
-    // Guided sequence: Red/Green x3 with countdowns
-    const trafficCue = $('#trafficCue');
-    const countdownEl = $('#countdown');
-    let seqTimer = null, seqPaused = false, remaining = 0;
-    const sequence = [
-      { label:'红灯：闭眼，三次深呼吸', seconds:10, color:'var(--danger)' },
-      { label:'绿灯：睁眼，活动身体', seconds:6, color:'var(--ok)' },
-      { label:'红灯：闭眼，三次深呼吸', seconds:10, color:'var(--danger)' },
-      { label:'绿灯：伸个懒腰', seconds:6, color:'var(--ok)' },
-      { label:'红灯：再来一次，觉察身体', seconds:10, color:'var(--danger)' },
-      { label:'绿灯：做得很好！', seconds:6, color:'var(--ok)' }
-    ];
-    let step = 0;
-
-    function runStep(){
-      if(step >= sequence.length){
-        trafficCue.textContent = '完成！分享一下你的感受吧～';
-        countdownEl.textContent = '—';
-        document.title = '完成第1次活动 ✅';
-        return;
-      }
-      const cur = sequence[step];
-      trafficCue.textContent = cur.label;
-      trafficCue.style.color = cur.color;
-      remaining = cur.seconds;
-      countdownEl.textContent = remaining + 's';
-      clearInterval(seqTimer);
-      seqTimer = setInterval(()=>{
-        if(!seqPaused){
-          remaining--; countdownEl.textContent = remaining + 's';
-          if(remaining <= 0){ clearInterval(seqTimer); step++; runStep(); }
-        }
-      }, 1000);
-    }
-    on($('#startSequence'),'click',()=>{ step = 0; seqPaused = false; runStep(); });
-    on($('#pauseSequence'),'click',()=>{ seqPaused = !seqPaused; $('#pauseSequence').textContent = seqPaused? '继续':'暂停'; });
-    on($('#resetSequence'),'click',()=>{ clearInterval(seqTimer); step = 0; seqPaused=false; trafficCue.textContent='点击“开始引导”'; countdownEl.textContent='—'; trafficCue.style.color='inherit'; });
-
-    // Learned buttons
-    on($('#learnedYes'),'click',()=>{ $('#learnedMsg').textContent='太棒了！继续下一个模块吧～'; });
-    on($('#learnedNo'),'click',()=>{ $('#learnedMsg').textContent='没问题，我已为你重置引导～'; $('#resetSequence').click(); });
-
-    // Web Speech API (speech-to-text) for feedback
-    let recognizing = false; let recognition;
-    try {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognition = SpeechRecognition ? new SpeechRecognition() : null;
-      if(recognition){
-        recognition.lang = 'zh-CN';
-        recognition.interimResults = true;
-        recognition.onresult = (e)=>{
-          let transcript='';
-          for(const res of e.results){ transcript += res[0].transcript; }
-          $('#feedbackBox').value = transcript;
-        };
-        recognition.onend = ()=>{
-          recognizing = false; $('#micBtn').textContent='🎤 开始录音'; $('#micStatus').textContent='录音结束';
-        };
-      }
-    } catch(err) { /* ignore */ }
-
-    on($('#micBtn'),'click',()=>{
-      if(!recognition){ $('#micStatus').textContent='此浏览器暂不支持语音输入'; return; }
-      if(!recognizing){ recognition.start(); recognizing = true; $('#micBtn').textContent='⏹️ 停止'; $('#micStatus').textContent='正在聆听……'; }
-      else{ recognition.stop(); }
+    // 手风琴交互逻辑
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const accordion = header.parentElement;
+        accordion.classList.toggle('active');
+      });
     });
-
-    // Canvas drawing: 红黄绿三栏背景
-    const canvas = document.getElementById('rgCanvas');
-    const ctx = canvas.getContext('2d');
-    function drawBackground(){
-      const w = canvas.width, h = canvas.height;
-      const third = w/3;
-      ctx.clearRect(0,0,w,h);
-      ctx.fillStyle = 'rgba(239,68,68,0.08)'; ctx.fillRect(0,0,third,h);
-      ctx.fillStyle = 'rgba(245,158,11,0.08)'; ctx.fillRect(third,0,third,h);
-      ctx.fillStyle = 'rgba(16,185,129,0.08)'; ctx.fillRect(third*2,0,third,h);
-      ctx.fillStyle = '#334155'; ctx.font='14px system-ui';
-      ctx.fillText('红灯：生气/冲动/停止', 12, 24);
-      ctx.fillText('黄灯：紧张/不确定/观察', third+12, 24);
-      ctx.fillText('绿灯：平静/可以行动', third*2+12, 24);
-    }
-    drawBackground();
-
-    let drawing=false, erasing=false, last={x:0,y:0};
-    function pos(e){
-      const r = canvas.getBoundingClientRect();
-      const x = (e.touches? e.touches[0].clientX : e.clientX) - r.left;
-      const y = (e.touches? e.touches[0].clientY : e.clientY) - r.top;
-      return {x,y};
-    }
-    function start(e){ drawing=true; last=pos(e); e.preventDefault(); }
-    function move(e){ if(!drawing) return; const p=pos(e); ctx.strokeStyle = erasing? '#ffffff' : '#0f172a'; ctx.lineWidth = erasing? 16 : 3; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last=p; e.preventDefault(); }
-    function end(){ drawing=false; }
-    canvas.addEventListener('mousedown', start); canvas.addEventListener('mousemove', move); window.addEventListener('mouseup', end);
-    canvas.addEventListener('touchstart', start, {passive:false}); canvas.addEventListener('touchmove', move, {passive:false}); canvas.addEventListener('touchend', end);
-    on($('#penBtn'),'click',()=>{ erasing=false; });
-    on($('#eraserBtn'),'click',()=>{ erasing=true; });
-    on($('#clearCanvas'),'click',()=>{ drawBackground(); });
-    on($('#saveCanvas'),'click',()=>{ const a=document.createElement('a'); a.download='我的情绪红绿灯.png'; a.href=canvas.toDataURL('image/png'); a.click(); });
-
-    // 1-minute timer
-    let timer = null, timeLeft = 60, running=false;
-    function renderTime(){ const m = String(Math.floor(timeLeft/60)).padStart(2,'0'); const s = String(timeLeft%60).padStart(2,'0'); $('#timer').textContent = `${m}:${s}`; }
-    function tick(){ if(timeLeft>0){ timeLeft--; renderTime(); } else { clearInterval(timer); running=false; $('#timerCircle').classList.remove('pulse'); document.title='1分钟完成 ✅'; }
-    }
-    on($('#timerStart'),'click',()=>{ if(!running){ timer = setInterval(tick,1000); running=true; $('#timerCircle').classList.add('pulse'); }});
-    on($('#timerPause'),'click',()=>{ if(running){ clearInterval(timer); running=false; $('#timerCircle').classList.remove('pulse'); }});
-    on($('#timerReset'),'click',()=>{ clearInterval(timer); running=false; timeLeft=60; renderTime(); $('#timerCircle').classList.remove('pulse'); });
-    renderTime();
   </script>
 </body>
 </html>
