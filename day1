@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>第1次课程：正念启蒙</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="back-btn">← 返回大纲</a>
+    <h1>第1次课程：正念启蒙——觉察情绪的红绿灯</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>开场问候</h2>
+      <p>亲爱的小朋友和家长们，欢迎来到第一节小课堂——正念。今天我们要学会像交通灯一样去觉察情绪！</p>
+    </section>
+
+    <section>
+      <h2>小游戏：红灯绿灯</h2>
+      <p>当我说 <b>红灯</b> → 闭眼，做3次深呼吸，关注情绪和身体。</p>
+      <p>当我说 <b>绿灯</b> → 睁眼，伸个懒腰，放松身体。</p>
+      <button onclick="startGame()">开始游戏</button>
+      <div id="game-area"></div>
+    </section>
+
+    <section>
+      <h2>讲解：什么是正念？</h2>
+      <p>正念 = 观察 + 不评判 + 此时此刻。情绪就像交通灯：红灯（生气/冲动），黄灯（紧张/不确定），绿灯（平静/放松）。</p>
+    </section>
+
+    <section>
+      <h2>练习：画我的情绪红绿灯</h2>
+      <p>在红灯写下“我什么时候会生气”；黄灯写下“我什么时候会紧张”；绿灯写下“我什么时候最放松”。</p>
+      <canvas id="drawCanvas" width="300" height="300" style="border:1px solid #ccc"></canvas><br>
+      <button onclick="clearCanvas()">清空画布</button>
+    </section>
+
+    <section>
+      <h2>家庭小作业</h2>
+      <p>每天一起做1分钟“红灯暂停”练习：闭眼，深呼吸。</p>
+      <button onclick="startTimer()">开始1分钟练习</button>
+      <p id="timer"></p>
+    </section>
+  </main>
+
+  <script>
+    function startGame() {
+      const gameArea = document.getElementById("game-area");
+      gameArea.innerHTML = "红灯...请闭眼深呼吸";
+      setTimeout(()=>{ gameArea.innerHTML="绿灯...伸个懒腰"; }, 3000);
+      setTimeout(()=>{ gameArea.innerHTML="红灯...再来一次深呼吸"; }, 6000);
+      setTimeout(()=>{ gameArea.innerHTML="绿灯...放松身体"; }, 9000);
+    }
+
+    function startTimer() {
+      let time = 60;
+      const timer = document.getElementById("timer");
+      const interval = setInterval(()=>{
+        timer.innerText = "剩余：" + time + " 秒";
+        time--;
+        if(time < 0){
+          clearInterval(interval);
+          timer.innerText = "完成啦！";
+        }
+      },1000);
+    }
+
+    const canvas = document.getElementById("drawCanvas");
+    const ctx = canvas.getContext("2d");
+    let painting = false;
+    canvas.onmousedown = ()=>{ painting = true; };
+    canvas.onmouseup = ()=>{ painting = false; ctx.beginPath(); };
+    canvas.onmousemove = (e)=>{
+      if(!painting) return;
+      ctx.lineWidth = 2;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = "black";
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    };
+    function clearCanvas(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
+  </script>
+</body>
+</html>
