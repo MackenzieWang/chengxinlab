@@ -1,908 +1,111 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>亲子正念DBT课程 - 6天线上课程</title>
-    <style>
-        :root {
-            --primary: #4a7c59;
-            --secondary: #8d9f87;
-            --accent: #c44536;
-            --light: #f5f5f5;
-            --dark: #333;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-        
-        body {
-            background-color: #fafafa;
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .view-toggle {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-        
-        .view-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: bold;
-            transition: var(--transition);
-        }
-        
-        .view-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        /* 卡片视图样式 */
-        .cards-view {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .day-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            cursor: pointer;
-            height: 100%;
-        }
-        
-        .day-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card-header {
-            background: var(--primary);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .card-content {
-            padding: 1.5rem;
-        }
-        
-        .card-objective {
-            font-style: italic;
-            margin-bottom: 1rem;
-            color: #666;
-        }
-        
-        .card-highlights {
-            margin-bottom: 1rem;
-        }
-        
-        .card-highlights li {
-            margin-bottom: 0.5rem;
-            list-style-type: none;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        
-        .card-highlights li:before {
-            content: "•";
-            color: var(--primary);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-        
-        .card-homework {
-            background: #fff9e6;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-        
-        /* 详情视图样式 */
-        .detail-view {
-            display: none;
-        }
-        
-        .detail-view.active {
-            display: block;
-        }
-        
-        .intro {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
-        
-        .days-nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-        
-        .day-btn {
-            padding: 1rem 1.5rem;
-            background: white;
-            border: 2px solid var(--primary);
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: var(--transition);
-        }
-        
-        .day-btn:hover, .day-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .content-area {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        
-        .practice-btn {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            padding: 0.8rem 1.5rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-        
-        .practice-btn:hover {
-            background: #a53c2e;
-            transform: translateY(-2px);
-        }
-        
-        .day-content {
-            display: none;
-        }
-        
-        .day-content.active {
-            display: block;
-        }
-        
-        .day-title {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--secondary);
-        }
-        
-        .objective {
-            background: #f0f7f0;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-        
-        .section {
-            margin-bottom: 2rem;
-        }
-        
-        .section-title {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .homework {
-            background: #fff9e6;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #ffcc00;
-        }
-        
-        .homework h3 {
-            color: #e6a700;
-            margin-bottom: 1rem;
-        }
-        
-        /* 练习模态框样式 */
-        .practice-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 2rem 1rem;
-        }
-        
-        .practice-modal.active {
-            display: block;
-        }
-        
-        .practice-content {
-            background: white;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--accent);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .practice-title {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-        
-        .practice-section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: #f9f9f9;
-            border-radius: 8px;
-        }
-        
-        .practice-interaction {
-            background: #e8f4f8;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-            text-align: center;
-        }
-        
-        .interaction-btn {
-            padding: 0.8rem 1.5rem;
-            margin: 0 0.5rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: var(--transition);
-        }
-        
-        .interaction-btn:hover {
-            background: #3c6b4a;
-        }
-        
-        .traffic-light {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .light {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .red-light {
-            background: #ff4d4d;
-        }
-        
-        .yellow-light {
-            background: #ffcc00;
-        }
-        
-        .green-light {
-            background: #4caf50;
-        }
-        
-        .feedback-area {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border: 1px dashed #ccc;
-            border-radius: 8px;
-            min-height: 100px;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: var(--dark);
-            color: white;
-            margin-top: 3rem;
-        }
-        
-        @media (max-width: 768px) {
-            .days-nav {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .day-btn {
-                width: 100%;
-                text-align: center;
-            }
-            
-            .cards-view {
-                grid-template-columns: 1fr;
-            }
-            
-            .view-toggle {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin: 1rem auto;
-                width: fit-content;
-            }
-            
-            .practice-btn {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin: 1rem 0;
-                display: block;
-                width: 100%;
-            }
-            
-            .traffic-light {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>DBT 亲子6日课程</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    header { background: #4CAF50; color: white; padding: 20px; text-align: center; }
+    main { max-width: 900px; margin: 20px auto; padding: 0 20px; }
+    h2 { color: #333; }
+    .accordion { background: white; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+    .accordion-header { padding: 15px; cursor: pointer; background: #eee; font-weight: bold; }
+    .accordion-content { display: none; padding: 15px; border-top: 1px solid #ddd; }
+    .accordion.active .accordion-content { display: block; }
+    .btn { display: inline-block; margin-top: 10px; padding: 8px 14px; background: #4CAF50; color: white; text-decoration: none; border-radius: 4px; }
+    .btn:hover { background: #45a049; }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>亲子正念DBT课程</h1>
-        <p class="subtitle">6天线上课程 - 帮助父母与孩子共同成长</p>
-        
-        <div class="view-toggle">
-            <button class="view-btn active" data-view="cards">卡片视图</button>
-            <button class="view-btn" data-view="detail">详情视图</button>
-        </div>
-    </header>
+  <header>
+    <h1>DBT 亲子6日课程</h1>
+    <p>通过6次课程，帮助父母和孩子学习情绪调节与沟通的技能。</p>
+  </header>
+  <main>
+    <h2>课程大纲</h2>
     
-    <div class="container">
-        <!-- 卡片视图 -->
-        <div class="cards-view" id="cardsView">
-            <!-- 第1天卡片 -->
-            <div class="day-card" data-day="1">
-                <div class="card-header">
-                    <h2>第1天</h2>
-                    <p>正念启蒙——觉察情绪的红绿灯</p>
-                </div>
-                <div class="card-content">
-                    <p class="card-objective">帮助父母和孩子一起学习"停下来-觉察-有意识的选择"的正念方式。</p>
-                    <ul class="card-highlights">
-                        <li>红灯绿灯游戏</li>
-                        <li>情绪交通灯概念</li>
-                        <li>绘制情绪红绿灯</li>
-                    </ul>
-                    <div class="card-homework">
-                        <strong>家庭作业:</strong> 每天一起做1分钟"红灯暂停"，练习深呼吸。
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 第2天卡片 -->
-            <div class="day-card" data-day="2">
-                <div class="card-header">
-                    <h2>第2天</h2>
-                    <p>情绪调节——情绪像天气</p>
-                </div>
-                <div class="card-content">
-                    <p class="card-objective">理解情绪会来去，学会命名和理解情绪。</p>
-                    <ul class="card-highlights">
-                        <li>情绪天气比喻</li>
-                        <li>制作情绪天气预报卡片</li>
-                        <li>父母回应技巧</li>
-                    </ul>
-                    <div class="card-homework">
-                        <strong>家庭作业:</strong> 每天晚饭后分享"今天的情绪天气"。
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 第3天卡片 -->
-            <div class="day-card" data-day="3">
-                <div class="card-header">
-                    <h2>第3天</h2>
-                    <p>痛苦耐受——情绪风暴时的小工具</p>
-                </div>
-                <div class="card-content">
-                    <p class="card-objective">学会在情绪爆发时，使用简单技能安抚自己。</p>
-                    <ul class="card-highlights">
-                        <li>避风伞概念</li>
-                        <li>三招避风伞练习</li>
-                        <li>父母撑伞技巧</li>
-                    </ul>
-                    <div class="card-homework">
-                        <strong>家庭作业:</strong> 准备"避风伞小盒子"。
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 第4天卡片 -->
-            <div class="day-card" data-day="4">
-                <div class="card-header">
-                    <h2>第4天</h2>
-                    <p>情绪认可——让孩子感到被理解</p>
-                </div>
-                <div class="card-content">
-                    <p class="card-objective">学习"认可"的语言和方法，让孩子感受到被看见。</p>
-                    <ul class="card-highlights">
-                        <li>角色互换活动</li>
-                        <li>认可与同意的区别</li>
-                        <li>三步认可法</li>
-                    </ul>
-                    <div class="card-homework">
-                        <strong>家庭作业:</strong> 每天尝试说出认可句子。
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 第5天卡片 -->
-            <div class="day-card" data-day="5">
-                <div class="card-header">
-                    <h2>第5天</h2>
-                    <p>人际效能——学会表达需要</p>
-                </div>
-                <div class="card-content">
-                    <p class="card-objective">帮助孩子用合适的方式表达需求，减少情绪爆发。</p>
-                    <ul class="card-highlights">
-                        <li>角色扮演练习</li>
-                        <li>毛绒玩具演示</li>
-                        <li>倾听与确认技巧</li>
-                    </ul>
-                    <div class="card-homework">
-                        <strong>家庭作业:</strong> 每天"请帮我+谢谢"表达训练。
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 第6天卡片 -->
-            <div class="day-card" data-day="6">
-                <div class="card-header">
-                    <h2>第6天</h2>
-                    <p>共同调节——一起找到快乐小盒子</p>
-                </div>
-                <div class="card-content">
-                    <p class="card-objective">建立亲子共调节经验，用积极活动恢复情绪。</p>
-                    <ul class="card-highlights">
-                        <li>快乐小盒子概念</li>
-                        <li>写下开心活动</li>
-                        <li>快乐药箱游戏</li>
-                    </ul>
-                    <div class="card-homework">
-                        <strong>家庭作业:</strong> 每天做"快乐药箱"活动。
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 详情视图 -->
-        <div class="detail-view" id="detailView">
-            <div class="intro">
-                <h2>欢迎参加我们的正念之旅</h2>
-                <p>这个为期6天的课程将帮助您和孩子一起学习正念技巧、情绪调节和有效沟通，建立更加和谐的亲子关系。</p>
-            </div>
-            
-            <div class="days-nav">
-                <button class="day-btn active" data-day="1">第1天</button>
-                <button class="day-btn" data-day="2">第2天</button>
-                <button class="day-btn" data-day="3">第3天</button>
-                <button class="day-btn" data-day="4">第4天</button>
-                <button class="day-btn" data-day="5">第5天</button>
-                <button class="day-btn" data-day="6">第6天</button>
-            </div>
-            
-            <div class="content-area">
-                <!-- 第1天内容 -->
-                <div class="day-content active" id="day1">
-                    <button class="practice-btn" data-day="1">进入练习</button>
-                    <h2 class="day-title">第1次：正念启蒙——觉察情绪的红绿灯</h2>
-                    
-                    <div class="objective">
-                        <h3>目标</h3>
-                        <p>帮助父母和孩子一起学习"停下来-觉察-有意识的选择"的正念方式。</p>
-                    </div>
-                    
-                    <div class="section">
-                        <h3 class="section-title">环节</h3>
-                        <ol>
-                            <li><strong>小活动：红灯绿灯游戏</strong> → 红灯时闭眼，关注呼吸/身体感觉。</li>
-                            <li><strong>讲解：正念的定义</strong>，包括观察、不评判、此时此刻。着重介绍观察技能，学会观察自己的情绪。情绪像"交通灯"——红灯（生气/冲动），黄灯（紧张/不确定），绿灯（平静/可以行动）。当觉察到情绪后，可以有意识地选择是否根据情绪行动。</li>
-                            <li><strong>练习：</strong>一起画"我的情绪红绿灯"，写下自己平常的信号，在什么情况下会有该情绪。</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="homework">
-                        <h3>家庭作业</h3>
-                        <p>每天一起做1分钟"红灯暂停"，练习深呼吸。</p>
-                    </div>
-                </div>
-                
-                <!-- 第2天内容 -->
-                <div class="day-content" id="day2">
-                    <button class="practice-btn" data-day="2">进入练习</button>
-                    <h2 class="day-title">第2次：情绪调节——情绪像天气</h2>
-                    
-                    <div class="objective">
-                        <h3>目标</h3>
-                        <p>理解情绪会来去，学会命名和理解情绪。</p>
-                    </div>
-                    
-                    <div class="section">
-                        <h3 class="section-title">环节</h3>
-                        <ol>
-                            <li><strong>比喻游戏：</strong>情绪像天气，今天可能下雨，明天可能晴天。</li>
-                            <li><strong>练习：</strong>制作"情绪天气预报"卡片（画太阳、乌云、暴雨等），每天一起打卡。</li>
-                            <li><strong>父母练习：</strong>在孩子情绪爆发时，用"我看到你现在像一场小暴雨，我在你身边"来回应。</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="homework">
-                        <h3>家庭作业</h3>
-                        <p>每天晚饭后分享"今天的情绪天气"。</p>
-                    </div>
-                </div>
-                
-                <!-- 第3天内容 -->
-                <div class="day-content" id="day3">
-                    <button class="practice-btn" data-day="3">进入练习</button>
-                    <h2 class="day-title">第3次：痛苦耐受——情绪风暴时的小工具</h2>
-                    
-                    <div class="objective">
-                        <h3>目标</h3>
-                        <p>学会在情绪爆发时，使用简单技能安抚自己。</p>
-                    </div>
-                    
-                    <div class="section">
-                        <h3 class="section-title">环节</h3>
-                        <ol>
-                            <li><strong>讲解：</strong>当我们生气/焦虑，就像进了风暴，需要"避风伞"。</li>
-                            <li><strong>练习：</strong>一起做"三招避风伞"：
-                                <ul>
-                                    <li>冰水握手/小毛巾冷敷（TIPs技能）</li>
-                                    <li>吹气游戏（深呼吸）</li>
-                                    <li>拍手节奏（转移注意力）</li>
-                                </ul>
-                            </li>
-                            <li><strong>父母练习：</strong>在孩子情绪大时，不急着讲道理，而是一起先"撑伞"。</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="homework">
-                        <h3>家庭作业</h3>
-                        <p>准备一个"避风伞小盒子"（里面放冷毛巾、玩具、小卡片等）。</p>
-                    </div>
-                </div>
-                
-                <!-- 第4天内容 -->
-                <div class="day-content" id="day4">
-                    <button class="practice-btn" data-day="4">进入练习</button>
-                    <h2 class="day-title">第4节：情绪认可——让孩子感到被理解</h2>
-                    
-                    <div class="objective">
-                        <h3>目标</h3>
-                        <p>让父母和孩子学习"认可"的语言和方法，让孩子感受到"我的情绪是被看见的"。</p>
-                    </div>
-                    
-                    <div class="section">
-                        <h3 class="section-title">环节</h3>
-                        <ol>
-                            <li><strong>小故事引入：</strong>
-                                <p>父母说："今天下雨我没带伞，我很生气。"</p>
-                                <p>孩子扮演"安慰小专家"，说："我知道你很生气，下雨真的让人不舒服。"</p>
-                                <p>（通过角色互换，孩子和父母体验被认可的感觉。）</p>
-                            </li>
-                            <li><strong>讲解：</strong>
-                                <p>认可 ≠ 同意，认可是"我理解你为什么会有这种感觉"。</p>
-                                <p>父母常见的"不认可语言" → "你太小题大做了""没什么大不了"</p>
-                                <p>转换成认可语言 → "我看到你真的很难过""换做我也会生气"</p>
-                            </li>
-                            <li><strong>练习：</strong>
-                                <p>"三步认可法"：</p>
-                                <ul>
-                                    <li>看见（我看到你在哭…）</li>
-                                    <li>理解（我猜你是因为没被选上比赛队伍而难过…）</li>
-                                    <li>支持（你不是一个人，我在这里陪你…）</li>
-                                </ul>
-                                <p>父母和孩子轮流用这个三步法演练。</p>
-                            </li>
-                        </ol>
-                    </div>
-                    
-                    <div class="homework">
-                        <h3>家庭作业</h3>
-                        <p>每天至少一次，父母尝试对孩子说出一个认可句子，孩子尝试对父母说一句"我知道你很累/辛苦"的话。</p>
-                    </div>
-                </div>
-                
-                <!-- 第5天内容 -->
-                <div class="day-content" id="day5">
-                    <button class="practice-btn" data-day="5">进入练习</button>
-                    <h2 class="day-title">第5次：人际效能——学会表达需要</h2>
-                    
-                    <div class="objective">
-                        <h3>目标</h3>
-                        <p>帮助孩子用合适的方式表达需求，减少情绪爆发。</p>
-                    </div>
-                    
-                    <div class="section">
-                        <h3 class="section-title">环节</h3>
-                        <ol>
-                            <li><strong>角色扮演：</strong>孩子学会说"我需要…"，父母学会回应"我听见了…"。</li>
-                            <li><strong>小练习：</strong>用毛绒玩具演示"请帮我""我不喜欢""我希望"。</li>
-                            <li><strong>父母练习：</strong>练习用倾听+重复孩子的话来确认需求。</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="homework">
-                        <h3>家庭作业</h3>
-                        <p>每天至少一次"请帮我+谢谢"的表达训练。</p>
-                    </div>
-                </div>
-                
-                <!-- 第6天内容 -->
-                <div class="day-content" id="day6">
-                    <button class="practice-btn" data-day="6">进入练习</button>
-                    <h2 class="day-title">第6次：共同调节——一起找到快乐小盒子</h2>
-                    
-                    <div class="objective">
-                        <h3>目标</h3>
-                        <p>建立亲子共调节经验，用积极活动来恢复情绪。</p>
-                    </div>
-                    
-                    <div class="section">
-                        <h3 class="section-title">环节</h3>
-                        <ol>
-                            <li><strong>讲解：</strong>每个人都有"快乐小盒子"（活动或东西能让自己平静）。讲解愉快事件列表技能。</li>
-                            <li><strong>练习：</strong>父母和孩子各自写下/画出3个让自己开心的活动（如跳舞、唱歌、抱抱）。</li>
-                            <li><strong>游戏：</strong>一起抽签做"快乐药箱活动"。</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="homework">
-                        <h3>家庭作业</h3>
-                        <p>每天至少做一个"快乐药箱"活动。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Day 1 -->
+    <div class="accordion">
+      <div class="accordion-header">第1次：正念启蒙——觉察情绪的红绿灯</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>帮助父母和孩子一起学习“停下来-觉察-有意识的选择”的正念方式。</p>
+        <p><strong>环节：</strong></p>
+        <ol>
+          <li>小活动：红灯绿灯游戏 → 红灯时闭眼，关注呼吸/身体感觉。</li>
+          <li>讲解：正念的定义，包括观察、不评判、此时此刻。情绪像“交通灯”——红灯（生气/冲动）、黄灯（紧张/不确定）、绿灯（平静/可以行动）。</li>
+          <li>练习：画“我的情绪红绿灯”，写下自己平常的信号。</li>
+        </ol>
+        <p><strong>家庭作业：</strong>每天一起做1分钟“红灯暂停”，练习深呼吸。</p>
+        <a href="day1.html" class="btn">进入课程</a>
+      </div>
     </div>
-    
-    <!-- 练习模态框 -->
-    <div class="practice-modal" id="practiceModal">
-        <div class="practice-content">
-            <button class="close-btn" id="closePractice">×</button>
-            <h2 class="practice-title" id="practiceDayTitle">第1次课程：正念启蒙——觉察情绪的红绿灯</h2>
-            
-            <div id="practiceContent">
-                <!-- 第一次课程的练习内容 -->
-                <div class="practice-section" id="day1-practice">
-                    <h3>开场问候</h3>
-                    <p>亲爱的小朋友和家长们，欢迎来到我们情绪宇宙的第一节小课堂——正念。今天，我们要一起学一个有趣的小游戏，帮助我们认识情绪，就像认识交通灯一样。准备好了吗？</p>
-                    
-                    <div class="practice-interaction">
-                        <p>你准备好了吗？</p>
-                        <button class="interaction-btn" onclick="startActivity()">是</button>
-                        <button class="interaction-btn" onclick="notReady()">否</button>
-                    </div>
-                    
-                    <div id="redLightGame" style="display: none;">
-                        <h3>一、小活动：红灯绿灯游戏</h3>
-                        <p>（此段需放慢语速，配合呼吸的节奏，给父母和孩子体验的空间）</p>
-                        <p>好，小朋友们和爸爸妈妈一起来。</p>
-                        <p>当我说 <strong>红灯</strong> 的时候，请大家停下来，轻轻闭上眼睛，做三次深呼吸，感觉一下自己的情绪：是开心？平静？悲伤？愤怒？还是其他……再感觉一下自己的身体：是不是心跳很快？呼吸有没有变得急？身体有没有紧张？有没有其他任何的身体感觉？</p>
-                        <p>当我说 <strong>绿灯</strong> 的时候，请大家睁开眼睛，活动一下手脚，伸个懒腰，就像小树在风里摆动一样。</p>
-                        
-                        <div class="traffic-light">
-                            <div class="light red-light" onclick="showRedLight()">红灯</div>
-                            <div class="light yellow-light">黄灯</div>
-                            <div class="light green-light" onclick="showGreenLight()">绿灯</div>
-                        </div>
-                        
-                        <div id="redLightMessage" style="display: none; background: #ffebee; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-                            <p>🚦 <strong>红灯！</strong> 请停下来，轻轻闭上眼睛，做三次深呼吸...</p>
-                            <p>感受自己的情绪和身体感觉...</p>
-                        </div>
-                        
-                        <div id="greenLightMessage" style="display: none; background: #e8f5e9; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-                            <p>🚦 <strong>绿灯！</strong> 请睁开眼睛，活动一下手脚，伸个懒腰...</p>
-                        </div>
-                        
-                        <div class="practice-interaction">
-                            <p>我们的游戏环节暂时到这里。小朋友和家长们愿意分享一下你的体验吗？</p>
-                            <div class="feedback-area" id="experienceFeedback">
-                                <textarea placeholder="在这里分享你的体验..." style="width: 100%; height: 80px; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
-                                <button style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">提交分享</button>
-                            </div>
-                        </div>
-                        
-                        <p>就像天气会不断变化一样，在生活里，我们也会有许多变化着的情绪。有的时候我们很容易感受到情绪，但是有时当我们生气、紧张或冲动时，很难立刻意识到"我现在在生气"。这个游戏帮助我们练习"停下来"，给自己一点点时间，注意身体的变化。这样，我们的大脑就有机会冷静下来，而不是被情绪推着走。</p>
-                        
-                        <div class="practice-interaction">
-                            <p>大家学会了吗？在有情绪时，我们都可以玩一下情绪红绿灯游戏！</p>
-                            <button class="interaction-btn" onclick="learned()">学会了</button>
-                            <button class="interaction-btn" onclick="notLearned()">没学会，再来一遍</button>
-                        </div>
-                    </div>
-                    
-                    <div class="practice-section">
-                        <h3>二、讲解：什么是正念？</h3>
-                        <p>亲爱的小朋友和家长朋友们，刚才我们玩游戏时体验到的"停一停"，其实就是正念的开始。正念，就是把注意力放在当下，去觉察正在发生的事情，包括我们的想法、情绪和身体感觉，而不急着评判它们。想要学会正念其实很简单，它有三个小秘诀：</p>
-                        <ol>
-                            <li><strong>观察：</strong>看看现在发生了什么。</li>
-                            <li><strong>不评判：</strong>不要急着说对或错、好或坏。</li>
-                            <li><strong>此时此刻：</strong>只关注现在，而不是过去或将来。</li>
-                        </ol>
-                        
-                        <p>很多时候，我们一生气就大喊，一紧张就不敢做事，一焦虑就手忙脚乱。其实，情绪就像红绿灯一样，它们在提醒我们：要不要停一下？要不要注意一下？当孩子和家长都能看见这个信号，就能做出更聪明的选择。那我们怎么用正念的方法观察自己的情绪呢？可以尝试练习"情绪红绿灯"，把情绪想象成交通灯：</p>
-                        
-                        <div class="traffic-light">
-                            <div class="light red-light">红灯<br>生气/冲动</div>
-                            <div class="light yellow-light">黄灯<br>紧张/不确定</div>
-                            <div class="light green-light">绿灯<br>平静/可以行动</div>
-                        </div>
-                    </div>
-                    
-                    <div class="practice-section">
-                        <h3>三、练习：画一画我的情绪红绿灯</h3>
-                        <p>接下来，请小朋友和家长一起拿一张纸，画一个大大的红绿灯。</p>
-                        <ul>
-                            <li>在 <strong style="color: #ff4d4d;">红灯</strong> 旁边写下：我什么时候会生气？我会做什么动作？</li>
-                            <li>在 <strong style="color: #ffcc00;">黄灯</strong> 旁边写下：我什么时候会紧张？我会有什么小信号？</li>
-                            <li>在 <strong style="color: #4caf50;">绿灯</strong> 旁边写下：我什么时候最放松？我喜欢做什么事情？</li>
-                        </ul>
-                        <p>家长也可以画自己的情绪红绿灯，然后和孩子互相分享。这样，你们会更懂彼此的情绪信号。</p>
-                        <p>当我们把心里的情绪画到纸上，就能更清楚地看到它。画画的过程就像是在给情绪贴标签，让我们更容易分辨：这是红灯还是绿灯？这样，下次遇到类似的情况，我们的大脑就会更快认出情绪信号，不容易被情绪控制。</p>
-                    </div>
-                    
-                    <div class="practice-section">
-                        <h3>四、家庭小作业</h3>
-                        <p>亲爱的小朋友和爸爸妈妈，情绪调节就像学骑自行车，光知道规则还不够，需要反复练习，才会越来越稳。从今天开始，每天一起做一个"红灯暂停"的小练习吧！找一个固定的时间，比如吃饭前或睡觉前，一起闭上眼睛，做 <strong>1分钟深呼吸</strong>。</p>
-                        <p>记住，当你感觉到情绪像红灯一样亮起来时，先停一下，深呼吸，再决定要不要做动作。</p>
-                        <p>每天1分钟的"红灯暂停"，能帮助孩子和家长在真实生活里更快地找到冷静的开关。</p>
-                    </div>
-                    
-                    <div class="practice-section" style="background: #f0f7ff; text-align: center;">
-                        <h3>温暖的小结</h3>
-                        <p>今天我们一起学会了第一个正念小技巧：觉察情绪的红绿灯。</p>
-                        <p>亲爱的小朋友，请记得：情绪没有对错，就像红灯、绿灯、黄灯都很重要一样。</p>
-                        <p>亲爱的家长，请记得：陪孩子一起练习，才会让这个小技巧变得更有力量。</p>
-                    </div>
-                </div>
-                
-                <!-- 其他天的练习内容（占位） -->
-                <div class="practice-section" id="day2-practice" style="display: none;">
-                    <h3>第2天练习内容</h3>
-                    <p>这里的练习内容正在准备中，敬请期待...</p>
-                </div>
-                
-                <div class="practice-section" id="day3-practice" style="display: none;">
-                    <h3>第3天练习内容</h3>
-                    <p>这里的练习内容正在准备中，敬请期待...</p>
-                </div>
-                
-                <div class="practice-section" id="day4-practice" style="display: none;">
-                    <h3>第4天练习内容</h3>
-                    <p>这里的练习内容正在准备中，敬请期待...</p>
-                </div>
-                
-                <div class="practice-section" id="day5-practice" style="display: none;">
-                    <h3>第5天练习内容</h3>
-                    <p>这里的练习内容正在准备中，敬请期待...</p>
-                </div>
-                
-                <div class="practice-section" id="day6-practice" style="display: none;">
-                    <h3>第6天练习内容</h3>
-                    <p>这里的练习内容正在准备中，敬请期待...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <footer>
-        <p>© 2023 亲子正念DBT课程 | 使用 GitHub Pages 构建</p>
-    </footer>
 
-    <script>
-        // 视图切换功能
-        document.querySelectorAll('.view-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const view = button.getAttribute('data-view');
-                
-                // 更新按钮状态
-                document.querySelectorAll('.view-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                button.classList.add('active');
-                
-                // 显示对应视图
-                if (view === 'cards') {
-                    document.getElementById('cardsView').style.display = 'grid';
-                    document.getElementById('detailView').style.display = 'none';
-                } else {
-                    document.getElementById('cardsView').style.display = 'none';
-                    document.getElementById('detailView').style.display = 'block';
-                }
-            });
-        });
-        
-        // 详情视图中的天数切换
-        document.querySelectorAll('.day-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                // 移除所有活动类
-                document.querySelectorAll('.day-btn').
+    <!-- Day 2 -->
+    <div class="accordion">
+      <div class="accordion-header">第2次：情绪调节——情绪像天气</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>理解情绪会来去，学会命名和理解情绪。</p>
+        <p><strong>环节：</strong></p>
+        <ol>
+          <li>比喻游戏：情绪像天气。</li>
+          <li>练习：制作“情绪天气预报”卡片。</li>
+          <li>父母练习：用比喻回应孩子情绪。</li>
+        </ol>
+        <p><strong>家庭作业：</strong>每天晚饭后分享“今天的情绪天气”。</p>
+        <a href="day2.html" class="btn">进入课程</a>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="accordion">
+      <div class="accordion-header">第3次：痛苦耐受——情绪风暴时的小工具</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>学会在情绪爆发时，使用简单技能安抚自己。</p>
+        <p>内容详见课程页面。</p>
+        <a href="day3.html" class="btn">进入课程</a>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="accordion">
+      <div class="accordion-header">第4次：情绪认可——让孩子感到被理解</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>让父母和孩子学习“认可”的语言和方法。</p>
+        <p>内容详见课程页面。</p>
+        <a href="day4.html" class="btn">进入课程</a>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="accordion">
+      <div class="accordion-header">第5次：人际效能——学会表达需要</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>帮助孩子用合适的方式表达需求，减少情绪爆发。</p>
+        <p>内容详见课程页面。</p>
+        <a href="day5.html" class="btn">进入课程</a>
+      </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="accordion">
+      <div class="accordion-header">第6次：共同调节——一起找到快乐小盒子</div>
+      <div class="accordion-content">
+        <p><strong>目标：</strong>建立亲子共调节经验，用积极活动来恢复情绪。</p>
+        <p>内容详见课程页面。</p>
+        <a href="day6.html" class="btn">进入课程</a>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // 手风琴交互逻辑
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const accordion = header.parentElement;
+        accordion.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
